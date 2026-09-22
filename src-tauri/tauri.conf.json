@@ -1,0 +1,116 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "zlynstall",
+  "version": "0.1.0",
+  "identifier": "dev.zlynstall.app",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "ZLynstall",
+        "width": 960,
+        "height": 640,
+        "minWidth": 760,
+        "minHeight": 540,
+        "center": true,
+        "decorations": false,
+        "transparent": true,
+        "dragDropEnabled": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "$DATA/icons/zlynstall/**",
+          "$HOME/.local/share/icons/zlynstall/**"
+        ]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "deb",
+      "rpm",
+      "appimage"
+    ],
+    "category": "Utility",
+    "shortDescription": "Install .deb, .rpm and AppImage files the right way for your distro",
+    "longDescription": "Drop a .deb, .rpm or .AppImage on ZLynstall and it installs it natively, converts it to a native package when the format doesn't match your distro, or integrates the AppImage with a menu entry. It tracks what it installed so you can remove it again.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "fileAssociations": [
+      {
+        "ext": [
+          "deb"
+        ],
+        "name": "Debian package",
+        "description": "Debian package",
+        "mimeType": "application/vnd.debian.binary-package",
+        "role": "Viewer"
+      },
+      {
+        "ext": [
+          "rpm"
+        ],
+        "name": "RPM package",
+        "description": "RPM package",
+        "mimeType": "application/x-rpm",
+        "role": "Viewer"
+      },
+      {
+        "ext": [
+          "AppImage",
+          "appimage"
+        ],
+        "name": "AppImage",
+        "description": "AppImage application bundle",
+        "mimeType": "application/vnd.appimage",
+        "role": "Viewer"
+      }
+    ],
+    "linux": {
+      "deb": {
+        "depends": [
+          "pkexec"
+        ],
+        "recommends": [
+          "libfuse2t64 | libfuse2"
+        ],
+        "section": "utils",
+        "priority": "optional",
+        "desktopTemplate": "../packaging/zlynstall.desktop.hbs"
+      },
+      "rpm": {
+        "depends": [
+          "polkit"
+        ],
+        "epoch": 0,
+        "release": "1",
+        "desktopTemplate": "../packaging/zlynstall.desktop.hbs"
+      },
+      "appimage": {
+        "bundleMediaFramework": false
+      }
+    },
+    "license": "GPL-3.0-or-later",
+    "licenseFile": "../LICENSE",
+    "copyright": "\u00a9 2026 TheHolyOneZ",
+    "publisher": "TheHolyOneZ",
+    "homepage": "https://github.com/TheHolyOneZ/ZLynstall"
+  },
+  "mainBinaryName": "zlynstall"
+}

@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-stamp: var(--stamp);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+
+  --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+
+  --radius-card: 6px;
+  --radius-input: 2px;
+
+  --ease-ink: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+:root {
+  --paper: #f4efe6;
+  --ink: #1b2a4a;
+  --stamp: #b3261e;
+  --ok: #2e6b4f;
+  --warn: #9a6b12;
+  --grain-blend: multiply;
+  --grain-opacity: 0.05;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="paper"]) {
+    --paper: #0f1d3a;
+    --ink: #e9effb;
+    --stamp: #ff6b5e;
+    --ok: #7fd1a8;
+    --warn: #f0c36a;
+    --grain-blend: screen;
+    --grain-opacity: 0.07;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="blueprint"] {
+  --paper: #0f1d3a;
+  --ink: #e9effb;
+  --stamp: #ff6b5e;
+  --ok: #7fd1a8;
+  --warn: #f0c36a;
+  --grain-blend: screen;
+  --grain-opacity: 0.07;
+  color-scheme: dark;
+}
+
+:root {
+  --ink-soft: color-mix(in oklab, var(--ink) 62%, transparent);
+  --ink-faint: color-mix(in oklab, var(--ink) 8%, transparent);
+  --rule: color-mix(in oklab, var(--ink) 16%, transparent);
+  --paper-raised: color-mix(in oklab, var(--paper) 94%, white 6%);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+:root[data-frame="system"] body {
+  background: var(--paper);
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+}
+
+.paper {
+  position: absolute;
+  inset: 14px;
+  border-radius: 12px;
+  background-color: var(--paper);
+  border: 1px solid var(--rule);
+  box-shadow:
+    0 1px 0 color-mix(in oklab, var(--ink) 6%, transparent),
+    0 24px 60px -24px rgba(0, 0, 0, 0.55),
+    0 8px 20px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  grid-template-rows: 40px 1fr;
+  isolation: isolate;
+}
+
+.paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  z-index: 50;
+}
+
+:root[data-frame="system"] .paper {
+  inset: 0;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+@layer components {
+  .sheet-grid {
+    background-image: radial-gradient(var(--rule) 1px, transparent 1.2px);
+    background-size: 24px 24px;
+    background-position: 0 0;
+  }
+
+  .hairline-b {
+    border-bottom: 1px solid var(--rule);
+  }
+  .hairline-r {
+    border-right: 1px solid var(--rule);
+  }
+  .hairline-t {
+    border-top: 1px solid var(--rule);
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .crop-marks {
+    --len: 10px;
+    --gap: 6px;
+    position: absolute;
+    inset: calc(-1 * var(--gap));
+    pointer-events: none;
+  }
+  .crop-marks::before,
+  .crop-marks::after,
+  .crop-marks > i::before,
+  .crop-marks > i::after {
+    content: "";
+    position: absolute;
+    width: var(--len);
+    height: var(--len);
+    border-color: var(--ink-soft);
+    border-style: solid;
+    border-width: 0;
+  }
+  .crop-marks::before {
+    top: 0;
+    left: 0;
+    border-top-width: 1px;
+    border-left-width: 1px;
+  }
+  .crop-marks::after {
+    top: 0;
+    right: 0;
+    border-top-width: 1px;
+    border-right-width: 1px;
+  }
+  .crop-marks > i::before {
+    bottom: 0;
+    left: 0;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+  }
+  .crop-marks > i::after {
+    bottom: 0;
+    right: 0;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=ZLynstall
+GenericName=Package Installer
+Comment=Install .deb, .rpm and AppImage files the right way for your distro
+Exec=zlynstall %U
+Icon=zlynstall
+Terminal=false
+Categories=System;PackageManager;Utility;
+MimeType=application/vnd.debian.binary-package;application/x-deb;application/x-rpm;application/vnd.appimage;application/x-iso9660-appimage;
+Keywords=deb;rpm;appimage;install;package;
+StartupWMClass=zlynstall

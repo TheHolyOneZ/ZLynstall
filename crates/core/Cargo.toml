@@ -1,0 +1,32 @@
+[package]
+name = "zlynstall-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Inspect, convert and install .deb / .rpm / .AppImage on any Linux distro"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+dirs = "7.0.0"
+toml = "1.1.6"
+uuid = { version = "1.26.1", features = ["v4"] }
+time = { version = "0.3.55", features = ["serde", "formatting", "parsing"] }
+ar = "0.9.0"
+tar = "0.4.46"
+flate2 = "1.1.10"
+zstd = "0.14.0"
+liblzma = { version = "0.4.8", features = ["static"] }
+rpm = { version = "0.28.0", default-features = false, features = ["payload", "gzip-compression", "zstd-compression", "xz-compression"] }
+backhand = "0.25.3"
+base64 = "0.23.1"
+libc = "0.2.189"
+
+[dev-dependencies]
+insta = "1.48.0"
+tempfile = "3.27.0"

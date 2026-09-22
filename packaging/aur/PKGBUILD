@@ -1,0 +1,38 @@
+# Maintainer: TheHolyOneZ
+pkgname=zlynstall
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Drop a .deb, .rpm or AppImage — installed the right way for your distro, with a menu entry"
+arch=('x86_64' 'aarch64')
+url="https://github.com/TheHolyOneZ/ZLynstall"
+license=('GPL-3.0-or-later')
+depends=('webkit2gtk-4.1' 'gtk3' 'polkit' 'libarchive' 'base-devel')
+optdepends=('fuse2: run AppImages without extract-and-run mode')
+makedepends=('cargo' 'pnpm' 'nodejs')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  pnpm install --frozen-lockfile
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  export CARGO_TARGET_DIR=target
+  pnpm tauri build --no-bundle
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 target/release/zlynstall "$pkgdir/usr/bin/zlynstall"
+  install -Dm755 target/release/zlynstall-cli "$pkgdir/usr/bin/zlynstall-cli"
+  install -Dm644 packaging/zlynstall.desktop "$pkgdir/usr/share/applications/zlynstall.desktop"
+  install -Dm644 packaging/icon.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/zlynstall.svg"
+  for s in 32 64 128 256; do
+    install -Dm644 "src-tauri/icons/${s}x${s}.png" "$pkgdir/usr/share/icons/hicolor/${s}x${s}/apps/zlynstall.png" 2>/dev/null || true
+  done
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <circle cx="32" cy="32" r="3" fill="#e9effb" fill-opacity="0.16"/>
+    </pattern>
+    <clipPath id="round"><rect x="0" y="0" width="1024" height="1024" rx="224" ry="224"/></clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect width="1024" height="1024" fill="#0f1d3a"/>
+    <rect width="1024" height="1024" fill="url(#grid)"/>
+    <!-- sheet frame with crop marks -->
+    <rect x="132" y="132" width="760" height="760" rx="24" fill="none" stroke="#e9effb" stroke-opacity="0.35" stroke-width="10" stroke-dasharray="38 26"/>
+    <g stroke="#e9effb" stroke-opacity="0.8" stroke-width="10" stroke-linecap="square">
+      <path d="M96 150v-54h54M874 96h54v54M96 874v54h54M928 874v54h-54"/>
+    </g>
+    <!-- the Z, drawn as a hairline stroke -->
+    <path d="M306 318h412L306 706h412" fill="none" stroke="#e9effb" stroke-width="58" stroke-linecap="square" stroke-linejoin="miter"/>
+    <!-- stamp dot -->
+    <circle cx="740" cy="298" r="64" fill="none" stroke="#ff6b5e" stroke-width="22"/>
+    <circle cx="740" cy="298" r="26" fill="#ff6b5e"/>
+  </g>
+</svg>

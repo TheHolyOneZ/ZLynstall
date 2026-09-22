@@ -1,0 +1,18 @@
+[package]
+name = "zlynstall-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Headless command-line front-end for ZLynstall"
+
+[[bin]]
+name = "zlynstall-cli"
+path = "src/main.rs"
+
+[dependencies]
+zlynstall-core.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+tokio.workspace = true
+libc = "0.2.189"
