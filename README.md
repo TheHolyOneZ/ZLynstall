@@ -286,10 +286,6 @@ Add `--json` for machine-readable output. It runs as root inside containers with
 - **More projects like this** — [zsync.eu](https://zsync.eu/)
 - **Game mods** — [zlogic.eu](https://zlogic.eu/)
 
-## For developers
-
-The code is a Rust core (`crates/core`: inspection, conversion, backends, updater), a Tauri 2 shell (`src-tauri`) and a React 19 / TypeScript / Tailwind 4 frontend (`src`). Start with [`DEVELOPMENT.md`](DEVELOPMENT.md) for the commands and rules, and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the design (the strategy matrix, the job/event model, the registry, the updater, the privilege model, the Blueprint design tokens).
-
 ---
 
 ## License
